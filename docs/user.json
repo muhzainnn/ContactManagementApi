@@ -1,0 +1,361 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "version": "1.0.0",
+      "title":"User Management RESTful API",
+      "description": "API For Managing User Authentication",
+      "contact": {
+        "name": "Muhammad Zaini Gunanda",
+        "email": "muhammadzainigunanda@gmail.com"
+      }
+    },
+    "host": "localhost: 3000",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/users/register": {
+            "post": {
+                "tags": ["User Management"],
+                "summary": "Register a new user",
+                "description": "This endpoint allows clients to register a new user in the system.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                         "application/json": {
+                            "schema": { 
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "required": true,
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "password": {
+                                        "required": true,
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "name": {
+                                        "required": true,
+                                        "type": "string",
+                                        "maxLength": 100
+                                    }
+                                }
+                            },
+                            "example": {
+                                "username": "example_username",
+                                "password": "ExamplePassword",
+                                "name": "Example Name"
+                            }
+                         }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User retrieval was successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "username": "example_username",
+                                        "name": "Example Name"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 400,
+                                    "errors": "Validation Errors"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict - User Already Exists",
+                        "content": {
+                            "application/json":{
+                                "example": {
+                                    "status": "errors",
+                                    "code": 409,
+                                    "errors": "username already exits"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post":{
+                "tags": ["User Management"],
+                "summary": "Login user",
+                "description": "This endpoint enables users to log into the system.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                         "application/json": {
+                            "schema": { 
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "required": true,
+                                        "type": "string",
+                                        "maxLength": 100
+                                    },
+                                    "password": {
+                                        "required": true,
+                                        "type": "string",
+                                        "maxLength": 100
+                                    }
+                                }
+                            },
+                            "example": {
+                                "username": "example_username",
+                                "password": "ExamplePassword"
+                            }
+                         }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Login",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 200,
+                                    "data": {
+                                        "token": "example_access_token"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 400,
+                                    "errors": "Validation Errors"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Conflict - Invalid Credentials",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "invalid username or password"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/getUser": {
+            "get": {
+                "tags": ["User Management"],
+                "summary": "Get user",
+                "description": "Retrieve information about a user from the system.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of user details",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "username": "example_username",
+                                        "name": "Example Name"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/update": {
+            "patch":{
+                "tags": ["User Management"],
+                "summary": "Update user",
+                "description": "Update user details in the system.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful update of user details",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "username": "example_username",
+                                        "name": "Example New Name"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found - User Not Found",
+                        "content": {
+                            "application/json":{
+                                "example": {
+                                    "status": "errors",
+                                    "code": "404",
+                                    "errors": "User not found"
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description": "Bad Request - Validation Errors",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 400,
+                                    "errors": "Validation Errors"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/logout": {
+            "delete": {
+                "tags": ["User Management"],
+                "summary": "Logout user",
+                "description": "Logout the currently authenticated user from the system.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful logout of user details",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "username": "example_username"                                }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found - User Not Found",
+                        "content": {
+                            "application/json":{
+                                "example": {
+                                    "status": "errors",
+                                    "code": "404",
+                                    "errors": "User not found"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
