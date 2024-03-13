@@ -1,0 +1,341 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"System Contact Management RESTful API",
+      "description": "Proyek ini bertujuan untuk menyediakan RESTful API yang efisien dan andal untuk manajemen kontak dalam sistem. API ini dirancang untuk mendukung tiga fitur utama: User Management, Contact Management, dan Addresses Management.",
+      "version":"1.0.0",
+      "contact": {
+        "name": "Muhammad Zaini Gunanda",
+        "email": "muhammadzainigunanda@gmail.com"
+      }
+    },
+    "host": "localhost: 3000",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/contacts": {
+            "post": {
+                "tags": ["Contact Management"],
+                "summary": "Create a new contact",
+                "description": "This endpoint allows clients to register new contacts in the system.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody" : {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "first_name": "Example_firstname",
+                                "last_name": "Example_lastname",
+                                "email": "example@gmail.com",
+                                "phone": "823592385329"
+                            }
+                        }
+                    }
+                }
+                ,
+                "responses": {
+                    "200" : {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "id": 1,
+                                        "first_name": "Example_firstname",
+                                        "last_name": "Example_lastname",
+                                        "email": "example@gmail.com",
+                                        "phone": "88425852528"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 400,
+                                    "erorrs": "Validation Errors"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contacts/contactId": {
+            "get": {
+                "tags": ["Contact Management"],
+                "summary": "Get Contact by ID",
+                "description": "This endpoint retrieves information about a contact based on the provided contact ID.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "The unique ID of the contact.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "id": 1,
+                                        "first_name": "Example_firstname",
+                                        "last_name": "Example_lastname",
+                                        "email": "example@gmail.com",
+                                        "phone": "82415212152"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bad Request - Contact Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 404,
+                                    "erorrs": "Contact Not Found"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Contact Management"],
+                "summary": "Get Contact by ID",
+                "description": "This endpoint updates about the contact based on the provided contact ID.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "The unique ID of the contact.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "first_name": "Example new first_name",
+                                "last_name": "Example new last_name",
+                                "email": "newexample@gmail.com",
+                                "phone": "928528828252"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": {
+                                        "first_name": "new first_name",
+                                        "last_name": "new last_name",
+                                        "email": "newemail@gmail.com",
+                                        "phone": "528221512"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Validation Failed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 400,
+                                    "erorrs": "Validation Errors"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bad Request - Contact Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 404,
+                                    "erorrs": "Contact Not Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Contact Management"],
+                "summary": "Delete Contact by ID",
+                "description": "This endpoint deletes about contacts based on the given contact ID.",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "contactId",
+                        "in": "path",
+                        "description": "The unique ID of the contact.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "header",
+                        "description": "Authentication token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "OK",
+                                    "code": 200,
+                                    "data": "OK"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid Token",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 401,
+                                    "errors": "Unauthorized: Invalid or missing token"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bad Request - Contact Not Found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "status": "errors",
+                                    "code": 404,
+                                    "erorrs": "Contact Not Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+  }
