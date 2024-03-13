@@ -2,7 +2,7 @@
     "openapi":"3.0.2",
     "info": {
       "version": "1.0.0",
-      "title":"User Management RESTful API",
+      "title":"System Contact Management RESTful API",
       "description": "API For Managing User Authentication",
       "contact": {
         "name": "Muhammad Zaini Gunanda",
@@ -18,7 +18,7 @@
             "post": {
                 "tags": ["User Management"],
                 "summary": "Register a new user",
-                "description": "This endpoint allows clients to register a new user in the system.",
+                "description": "Proyek ini bertujuan untuk menyediakan RESTful API yang efisien untuk manajemen kontak dalam sistem. API ini dirancang untuk mendukung tiga fitur utama: User Management, Contact Management, dan Addresses Management.",
                 "requestBody": {
                     "required": true,
                     "content": {
