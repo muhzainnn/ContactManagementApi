@@ -1,6 +1,6 @@
 import express from 'express';
 import { errorMiddleware } from '../middleware/error-middleware.js';
-import { publicRouter } from '../router/open-api.js';
+import { publicRouter } from '../router/public-api.js';
 import { userRouter } from '../router/api.js';
 
 export const web = express();
