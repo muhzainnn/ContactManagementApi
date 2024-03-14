@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  Iterasi pertama dari <a href="https://github.com/yuckfouhctib" target="_blank">@muhzainnn</a> dibangun dengan Node.js menggunakan beberapa framework. Proyek ini masih dalam tahap pengembangan, dan beberapa fitur dan perbaikan mungkin akan ditambahkan di masa depan.
+  Proyek iterasi pertama dari <a href="https://github.com/yuckfouhctib" target="_blank">@muhzainnn</a> dibangun dengan Node.js menggunakan beberapa framework. Bertujuan tidak hanya untuk Membuat RESTful API System Management Contact yang dirancang untuk mendukung tiga fitur utama: User Management, Contact Management, dan Addresses Management. Tetapi, juga sebagai praktik implementasi proyek sederhana yang merupakan hasil dari keterampilan yang telah saya pelajari sebagai seorang junior Software Engineer. Proyek ini sengaja disusun tanpa memimplementasikan aspek-aspek yang kompleks seperti 'Cacheable' dan 'Code on demand', sebagaimana yang dijelaskan dalam beberapa prinsip desain yang diperkenalkan oleh Roy Fielding dalam konteks pembuatan REST. Proyek ini masih dalam tahap pengembangan, dan beberapa fitur dan perbaikan mungkin akan ditambahkan di masa depan.
 </p>
 
 
